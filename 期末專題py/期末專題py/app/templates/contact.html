@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聯繫我們 - Steam 遊戲特價追蹤</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contact.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="contact-container">
+        <a href="/" class="back-button"><i class="fas fa-arrow-left"></i> 返回首頁</a>
+        
+        <div class="contact-content">
+            <h1>聯繫我們</h1>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <h3>電子郵件</h3>
+                    <p>support@steamtracker.com</p>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fab fa-discord"></i>
+                    <h3>Discord</h3>
+                    <p>加入我們的 Discord 社群</p>
+                    <a href="https://discord.gg/S7DjT3Sa" target="_blank" class="discord-button">
+                        加入 Discord
+                    </a>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h2>傳送訊息</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="subject">主旨</label>
+                        <input type="text" id="subject" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">訊息內容</label>
+                        <textarea id="message" rows="5" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-button">
+                        <i class="fas fa-paper-plane"></i> 發送訊息
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const formData = {
+            subject: document.getElementById('subject').value,
+            message: document.getElementById('message').value
+        };
+        
+        try {
+            const response = await fetch('/api/send-message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            const data = await response.json();
+            if (data.success) {
+                alert('訊息已送出！');
+                this.reset();
+            } else {
+                alert('發送失敗：' + data.message);
+            }
+        } catch (error) {
+            alert('發送失敗，請稍後再試');
+        }
+    });
+    </script>
+</body>
+</html> 

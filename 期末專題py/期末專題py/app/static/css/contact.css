@@ -1,0 +1,130 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #1b2838;
+    color: #c6d4df;
+}
+
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    color: #66c0f4;
+    text-decoration: none;
+    font-size: 16px;
+    margin-bottom: 30px;
+    gap: 8px;
+}
+
+.back-button:hover {
+    color: #fff;
+}
+
+.contact-content {
+    background: #2a475e;
+    border-radius: 8px;
+    padding: 30px;
+}
+
+.contact-content h1 {
+    text-align: center;
+    color: #66c0f4;
+    margin-bottom: 40px;
+}
+
+.contact-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.contact-item {
+    text-align: center;
+    padding: 20px;
+    background: #1b2838;
+    border-radius: 8px;
+}
+
+.contact-item i {
+    font-size: 40px;
+    color: #66c0f4;
+    margin-bottom: 15px;
+}
+
+.contact-item h3 {
+    margin: 10px 0;
+    color: #fff;
+}
+
+.discord-button {
+    display: inline-block;
+    background: #7289da;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+.discord-button:hover {
+    background: #5b73c7;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-form h2 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #c6d4df;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #1b2838;
+    background: #1b2838;
+    color: #fff;
+    border-radius: 4px;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    background: #4c6b22;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.submit-button:hover {
+    background: #5c8229;
+} 
