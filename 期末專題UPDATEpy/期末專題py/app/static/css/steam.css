@@ -1,0 +1,811 @@
+body {
+    margin: 0;
+    padding: 20px;
+    background: #1b2838;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+  }
+  
+  .menu-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .menu-item {
+    padding: 10px 20px;
+    background: #316282;
+    color: #ffffff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+    position: relative;
+  }
+  
+  .menu-item:hover {
+    background: #427aa1;
+  }
+  
+  .menu-item.active {
+    background: #66c0f4;
+  }
+  
+  .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #316282;
+    border-radius: 4px;
+    padding: 10px;
+    min-width: 200px;
+    z-index: 100;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+  
+  .menu-item:hover .submenu {
+    display: block;
+  }
+  
+  .submenu-item {
+    padding: 8px 12px;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .submenu-item:hover {
+    background: #427aa1;
+  }
+  
+  .search-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #2a475e;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  }
+  
+  .search-bar {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    background: #316282;
+    color: #ffffff;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .controls-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .sort-select {
+    padding: 8px;
+    background: #316282;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .sort-select option {
+    background: #316282;
+  }
+  
+  .tag-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  
+  .tag {
+    background: #316282;
+    color: #ffffff;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .tag:hover {
+    background: #427aa1;
+  }
+  
+  .tag.active {
+    background: #66c0f4;
+  }
+  
+  .tag.active::after {
+    content: "×";
+    margin-left: 5px;
+    font-weight: bold;
+  }
+  
+  .game-card {
+    background: #16202d;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    gap: 20px;
+    transition: transform 0.2s;
+    cursor: pointer;
+  }
+  
+  .game-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+  
+  .game-icon {
+    width: 120px;
+    height: 68px;
+    border-radius: 4px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  
+  .game-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .game-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .discount-badge {
+    background: #4c6b22;
+    color: #a4d007;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+  
+  .price {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  .original-price {
+    text-decoration: line-through;
+    color: #888;
+  }
+  
+  .final-price {
+    color: #a4d007;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  
+  .game-title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    position: relative;
+    background: #2a475e;
+    margin: 10% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  }
+  
+  .close-modal {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #ffffff;
+  }
+  
+  .link-container {
+    margin-top: 20px;
+  }
+  
+  .game-link {
+    display: block;
+    padding: 10px;
+    margin: 10px 0;
+    background: #316282;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  
+  .game-link:hover {
+    background: #427aa1;
+  }
+  
+  .header-auth {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 1000;
+  }
+  
+  .auth-button {
+    background: #316282;
+    color: #ffffff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s;
+  }
+  
+  .auth-button:hover {
+    background: #427aa1;
+  }
+  
+  .auth-button.active {
+    background: #66c0f4;
+  }
+  
+  #userInfo {
+    color: #ffffff;
+    margin-right: 10px;
+    line-height: 32px;
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 1100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-content {
+    position: relative;
+    background: #1b2838;
+    padding: 30px;
+    width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    /* 移除 margin: 15% auto; 改用以下屬性 */
+    margin: 0 auto;
+    transform: translateY(0);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .modal.show {
+    display: flex;
+    }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #8f98a0;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    background: #2a475e;
+    border: 1px solid #375a7f;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 14px;
+  }
+  
+  .form-group input:focus {
+    outline: none;
+    border-color: #66c0f4;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  
+  .modal h2 {
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  .message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  
+  .success-message {
+    background: rgba(76, 175, 80, 0.1);
+    color: #4CAF50;
+  }
+  
+  .error-message {
+    background: rgba(255, 68, 68, 0.1);
+    color: #ff4444;
+  }
+  
+  .deals-container {
+    padding: 20px;
+    background: #1b2838;
+  }
+  
+  .section-title {
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+  }
+  
+  .game-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .game-card {
+    background: #16202d;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.2s;
+    cursor: pointer;
+  }
+  
+  .game-card:hover {
+    transform: translateY(-3px);
+  }
+  
+  .game-card:hover .game-hover {
+    opacity: 1;
+  }
+  
+  .game-image {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 比例 */
+  }
+  
+  .game-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .game-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transition: opacity 0.3s;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  
+  .game-description h3 {
+    color: #fff;
+    margin: 0 0 10px 0;
+    font-size: 18px;
+  }
+  
+  .tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .tag {
+    background: rgba(255, 255, 255, 0.1);
+    color: #66c0f4;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+  }
+  
+  .game-info {
+    padding: 10px;
+  }
+  
+  .price-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .discount-badge {
+    background: #4c6b22;
+    color: #a4d007;
+    padding: 5px 8px;
+    border-radius: 2px;
+    font-weight: bold;
+  }
+  
+  .price-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .original-price {
+    color: #738895;
+    text-decoration: line-through;
+    font-size: 12px;
+  }
+  
+  .final-price {
+    color: #c6d4df;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  /* 通知按鈕樣式 */
+  .notification-controls {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .notification-button {
+    background: #1b2838;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+  }
+  
+  .notification-button:hover {
+    background: #2a475e;
+  }
+  
+  .notification-button.active {
+    background: #66c0f4;
+  }
+  
+  .notification-button i {
+    font-size: 16px;
+  }
+  
+  #testNotificationBtn {
+    background: #4c6b22;
+  }
+  
+  #testNotificationBtn:hover {
+    background: #5c8229;
+  }
+  
+  /* 管理按鈕樣式 */
+  .admin-button {
+    background: #c83e4d;  /* 深紅色背景 */
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;  /* 與通知按鈕的間距 */
+    transition: all 0.3s ease;
+    width: 100%;  /* 與通知按鈕同寬 */
+  }
+  
+  .admin-button:hover {
+    background: #e85d6a;
+    transform: translateY(-2px);
+  }
+  
+  .admin-button i {
+    font-size: 16px;
+  }
+  
+  /* 修改頂部按鈕樣式 */
+  .auth-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .admin-button {
+    background: #c83e4d;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+  }
+  
+  .admin-button:hover {
+    background: #e85d6a;
+  }
+  
+  /* 社群連結圖標樣式 */
+  .platform-logo {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+  }
+  
+  .platform-logo svg {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .steam-icon {
+    color: #fff;
+  }
+  
+  .youtube-icon {
+    color: #ff0000;
+  }
+  
+  .twitch-icon {
+    color: #6441a5;
+  }
+  
+  .reddit-icon {
+    color: #ff4500;
+  }
+  
+  .social-button {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    border-radius: 4px;
+    color: #fff;
+    text-decoration: none;
+    transition: transform 0.2s;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  .nav-link {
+    display: block;
+    padding: 8px 16px;
+    color: #c6d4df;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+  
+  /* 登入註冊按鈕樣式 */
+  .auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-right: 15px;
+  }
+  
+  #loginBtn, #registerBtn {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  #loginBtn {
+    background: #66c0f4;
+    color: white;
+  }
+  
+  #loginBtn:hover {
+    background: #4fa3d1;
+    transform: translateY(-2px);
+  }
+  
+  #registerBtn {
+    background: #2c4b6b;
+    color: #66c0f4;
+    border: 1px solid #66c0f4;
+  }
+  
+  #registerBtn:hover {
+    background: #66c0f4;
+    color: white;
+    transform: translateY(-2px);
+  }
+  
+  #logoutBtn {
+    padding: 8px 20px;
+    background: #c83e4d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  #logoutBtn:hover {
+    background: #e85d6a;
+    transform: translateY(-2px);
+  }
+  
+  #userInfo {
+    color: #c6d4df;
+    margin-right: 15px;
+    font-size: 14px;
+  }
+  
+  /* 管理按鈕樣式 */
+  .admin-button {
+    padding: 8px 20px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: 12px;
+    transition: all 0.3s ease;
+  }
+  
+  .admin-button:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+  }
+  
+  .admin-button i {
+    font-size: 14px;
+  }
+  /* 排序選單樣式 */
+.sort-container {
+  padding: 20px;
+  background: #1b2838;
+  margin-bottom: 20px;
+}
+
+.sort-by {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sort-by span {
+  color: #c6d4df;
+  font-size: 14px;
+}
+
+.sort-by select {
+  background: #2a475e;
+  color: #fff;
+  border: 1px solid #4b6b8f;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.sort-by select:hover {
+  border-color: #66c0f4;
+}
+
+.sort-by select:focus {
+  outline: none;
+  border-color: #66c0f4;
+}
+
+/* 確保選項文字顏色正確 */
+.sort-by select option {
+  background: #2a475e;
+  color: #fff;
+}
+
+.games-info {
+  padding: 10px 20px;
+  color: #c6d4df;
+  font-size: 14px;
+  background: #1b2838;
+  margin-bottom: 10px;
+}
+
+.pagination {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  background: #2a475e;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #66c0f4;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 添加遊戲ID的樣式 */
+.game-id {
+  color: #8f98a0;
+  font-size: 12px;
+  margin-top: 5px;
+  text-align: right;
+}
+
+.game-card {
+  background: #1b2838;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  margin-bottom: 20px;
+}

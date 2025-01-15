@@ -1,0 +1,136 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #1b2838;
+    color: #c6d4df;
+}
+
+.navbar {
+    background: #171a21;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    color: #c6d4df;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-links a {
+    color: #c6d4df;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+.navbar-links a:hover {
+    color: #66c0f4;
+}
+
+.post-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.post-content {
+    background: #2a475e;
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.post-header {
+    margin-bottom: 20px;
+}
+
+.post-header h1 {
+    margin: 0 0 10px 0;
+    color: #fff;
+}
+
+.post-meta {
+    display: flex;
+    gap: 20px;
+    color: #8f98a0;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.post-game {
+    margin: 10px 0;
+}
+
+.post-game a {
+    color: #66c0f4;
+    text-decoration: none;
+}
+
+.post-body {
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
+
+.comments-section {
+    margin-top: 30px;
+}
+
+.comments-section h2 {
+    margin-bottom: 20px;
+}
+
+.comment-form {
+    margin-bottom: 30px;
+}
+
+.comment-form textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    background: #2a475e;
+    border: 1px solid #4b6b8f;
+    color: white;
+    border-radius: 4px;
+    resize: vertical;
+    margin-bottom: 10px;
+}
+
+.comment-form button {
+    background: #66c0f4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.comment-form button:hover {
+    background: #1999ff;
+}
+
+.comment {
+    background: #2a475e;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    color: #8f98a0;
+    font-size: 0.9em;
+}
+
+.comment-content {
+    white-space: pre-wrap;
+} 

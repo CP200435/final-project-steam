@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam Clone</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/steam.css') }}">
+   
+</head>
+<body>
+    <div class="header-auth">
+        <div class="auth-buttons">
+            <button id="loginBtn" onclick="showLoginModal()">登入</button>
+            <button id="registerBtn" onclick="showRegisterModal()">註冊</button>
+            <span id="userInfo"></span>
+            <button id="adminBtn" class="admin-button" style="display: none;">
+                <i class="fas fa-cog"></i> 管理後台
+            </button>
+            <button id="logoutBtn" onclick="logout()" style="display: none;">登出</button>
+        </div>
+    </div>
+
+    <!-- 登入彈窗 -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h2>登入</h2>
+            <div class="form-group">
+                <label for="loginUsername">用戶名：</label>
+                <input type="text" id="loginUsername">
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">密碼：</label>
+                <input type="password" id="loginPassword">
+            </div>
+            <div class="modal-buttons">
+                <button class="auth-button" onclick="login()">登入</button>
+                <button class="auth-button" onclick="closeLoginModal()">取消</button>
+            </div>
+            <div id="loginMessage"></div>
+        </div>
+    </div>
+
+     <!-- 註冊彈窗 -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <h2>註冊</h2>
+            <div class="form-group">
+                <label for="registerUsername">用戶名：</label>
+                <input type="text" id="registerUsername">
+            </div>
+            <div class="form-group">
+                <label for="registerEmail">郵箱：</label>
+                <input type="email" id="registerEmail">
+            </div>
+            <div class="form-group">
+                <label for="registerPassword">密碼：</label>
+                <input type="password" id="registerPassword">
+            </div>
+            <div class="modal-buttons">
+                <button class="auth-button" onclick="register()">註冊</button>
+                <button class="auth-button" onclick="closeRegisterModal()">取消</button>
+            </div>
+            <div id="registerMessage"></div>
+        </div>
+    </div>
+
+    <!-- 主頁 -->
+<div class="search-container">
+  <div class="menu-container">
+  
+    <div class="menu-item">
+      社群資訊
+      <div class="submenu">
+        <div class="submenu-item">好友</div>
+        <div class="submenu-item" id="community-chat">討論區</div>
+
+      </div>
+    </div>
+   
+    <button id="contactBtn" class="contact-button" onclick="window.location.href='/contact'">
+        <i class="fas fa-envelope"></i> 聯繫我們
+    </button>
+  </div>
+
+  <input type="text" class="search-bar" id="searchInput" placeholder="搜尋遊戲..." onkeyup="searchGames(event)">
+  
+  <div class="controls-container">
+    <select class="sort-select" id="sortSelect" onchange="sortGames()">
+      <option value="default">排序方式...</option>
+      <option value="price-asc">價格：由低到高</option>
+      <option value="price-desc">價格：由高到低</option>
+      <option value="discount-desc">最大折扣</option>
+      <option value="downloads-desc">下載次數最多</option>
+      <option value="downloads-asc">下載次數最少</option>
+      <option value="rating-desc">評分最高</option>
+      <option value="rating-asc">評分最低</option>
+    </select>
+  </div>
+
+  <div class="tag-container">
+    <div class="tag" data-discount="50">50% off or more</div>
+    <div class="tag" data-discount="30">30% off or more</div>
+    <div class="tag" data-discount="20">20% off or more</div>
+    <div class="tag" data-category="action">Action</div>
+    <div class="tag" data-category="rpg">RPG</div>
+    <div class="tag" data-category="adventure">Adventure</div>
+  </div>
+  
+  
+  
+  
+  
+
+
+<div class="modal" id="gameModal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <h2 id="modalGameTitle"></h2>
+    <div class="link-container">
+      <a class="game-link steam-link" href="https://store.steampowered.com/app/" target="_blank">View on Steam</a>
+      <a class="game-link" href="https://www.ign.com/games" target="_blank">IGN Game Guides</a>
+      <a class="game-link" href="https://www.gamespot.com/games" target="_blank">GameSpot Strategy</a>
+      <a class="game-link" href="https://www.pcgamer.com/guides" target="_blank">PC Gamer Guides</a>
+    </div>
+  </div>
+</div>
+
+<div class="deals-container">
+    <h2 class="section-title">特價遊戲</h2>
+    <div id="gameDeals" class="game-container"></div>
+</div>
+
+<!-- 遊戲詳情彈窗 -->
+<div id="gameModal" class="modal">
+    <div class="modal-content game-modal-content">
+        <span class="close-button" onclick="closeGameModal()">&times;</span>
+        <div id="gameModalContent"></div>
+    </div>
+</div>
+
+<div class="notification-controls">
+    <button id="notificationBtn" class="notification-button">
+        <i class="fas fa-bell"></i> 開啟通知
+    </button>
+    <button id="testNotificationBtn" class="notification-button" style="display: none;">
+        <i class="fas fa-vial"></i> 測試通知
+    </button>
+    <button id="adminBtn" class="admin-button" style="display: none;">
+        <i class="fas fa-cog"></i> 管理後台
+    </button>
+</div>
+
+<!-- 排序選單 -->
+<div class="sort-container">
+    <div class="sort-by">
+        <span>Sort by:</span>
+        <select id="sortSelect" onchange="applySorting()">
+            <option value="default">Sort by...</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="discount-desc">Biggest Discount</option>
+            <option value="downloads-desc">Most Downloaded</option>
+            <option value="downloads-asc">Least Downloaded</option>
+            <option value="rating-desc">Highest Rated</option>
+            <option value="rating-asc">Lowest Rated</option>
+        </select>
+    </div>
+</div>
+
+<!-- 在遊戲列表上方添加總遊戲數顯示 -->
+<div class="games-info">
+    <span id="totalGames">載入中...</span>
+</div>
+
+<!-- 分頁控制 -->
+<div class="pagination">
+    <button id="prevPage" onclick="changePage(-1)" disabled>上一頁</button>
+    <span id="pageInfo">第 1 頁，共 1 頁</span>
+    <button id="nextPage" onclick="changePage(1)" disabled>下一頁</button>
+</div>
+
+<script src="{{ url_for('static', filename='js/steam.js') }}"></script>
+
+
+
+
+
+</body></html>

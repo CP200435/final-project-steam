@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam 遊戲討論區</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forum.css') }}">
+</head>
+<body>
+    <!-- 導航欄 -->
+    <nav class="navbar">
+        <a href="/" class="navbar-brand">Steam 遊戲討論區</a>
+        <div class="navbar-links">
+            <a href="/">首頁</a>
+            <a href="/forum">討論區</a>
+            {% if session.get('user_id') %}
+                <a href="/profile">{{ user.username }}</a>
+                <a href="/logout">登出</a>
+            {% else %}
+                <a href="/login">登入</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- 主要內容 -->
+    <div class="forum-container">
+        <div class="forum-header">
+            <h1>遊戲討論區</h1>
+            {% if session.get('user_id') %}
+            <button class="create-post-btn" onclick="showCreatePostModal()">
+                <i class="fas fa-plus"></i> 發表新文章
+            </button>
+            {% endif %}
+        </div>
+
+        <!-- 搜尋和篩選 -->
+        <div class="forum-filters">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="搜尋文章...">
+                <button onclick="searchPosts()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div class="sort-by">
+                <select id="sortSelect" onchange="sortPosts()">
+                    <option value="newest">最新發表</option>
+                    <option value="most_comments">最多回覆</option>
+                    <option value="most_views">最多觀看</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 文章列表 -->
+        <div class="posts-container" id="postsContainer">
+            {% for post in posts %}
+            <div class="post-card">
+                <div class="post-header">
+                    <h3>{{ post.title }}</h3>
+                    <span class="post-meta">
+                        由 {{ post.user.username }} 發表於 {{ post.created_at.strftime('%Y-%m-%d %H:%M') }}
+                    </span>
+                </div>
+                <div class="post-game">
+                    討論遊戲：<a href={{post.game.image_url}}>{{ post.game.title }}</a>
+                </div>
+                <div class="post-stats">
+                    <span><i class="fas fa-comment"></i> {{ post.comments.count() }} 回覆</span>
+                    <span><i class="fas fa-eye"></i> {{ post.views }} 觀看</span>
+                </div>
+                <a href="{{ url_for('main.view_post', post_id=post.id) }}" class="read-more">
+                    閱讀更多 <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- 分頁控制 -->
+        <div class="pagination">
+            {% if pagination.has_prev %}
+            <a href="{{ url_for('main.forum', page=pagination.prev_num) }}" class="page-btn">上一頁</a>
+            {% endif %}
+            
+            <span class="current-page">第 {{ pagination.page }} 頁，共 {{ pagination.pages }} 頁</span>
+            
+            {% if pagination.has_next %}
+            <a href="{{ url_for('main.forum', page=pagination.next_num) }}" class="page-btn">下一頁</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- 發文對話框 -->
+    <div id="createPostModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCreatePostModal()">&times;</span>
+            <h2>發表新文章</h2>
+            <form id="createPostForm" onsubmit="submitPost(event)">
+                <div class="form-group">
+                    <label for="postTitle">標題</label>
+                    <input type="text" id="postTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="gameSelect">選擇遊戲</label>
+                    <select id="gameSelect" required>
+                        {% for game in games %}
+                        <option value="{{ game.id }}">{{ game.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="postContent">內容</label>
+                    <textarea id="postContent" required></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit">發表</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/forum.js') }}"></script>
+</body>
+</html> 
